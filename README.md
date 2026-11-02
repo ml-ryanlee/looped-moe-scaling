@@ -68,23 +68,21 @@ and writes checkpoints to `checkpoints/<run name>/`.
 
 ## Reproducing the paper
 
-Each sweep file expands into `train.py` commands. `sweep.py` prints them, so you can hand
-them to a job scheduler, or runs them in sequence with `--run`.
+Training runs are defined by sweep files; `uv run python scripts/sweep.py <sweep> --run`
+runs one (without `--run` it prints the `train.py` commands for a job scheduler).
 
-| Paper | Commands |
-|---|---|
-| Fig. 2 μP transfer | `uv run python scripts/sweep.py configs/transfer/sweep.yaml --run`, then `uv run python scripts/plot_transfer.py` |
-| Fig. 1, 3, 9, 10 isoFLOP scaling | `uv run python scripts/sweep.py configs/16L/isoflop_sweep.yaml --run`, then `uv run python scripts/fit_isoflops.py` |
-| Tables 4, 6 benchmarks (6 seeds) | `uv run python scripts/sweep.py configs/16L/seeds_sweep.yaml --run`, export each model with `upload_hf.py`, then `uv run python scripts/eval_olmes.py --models ...` |
-| Fig. 4, Table 7 early exit | `uv run python scripts/early_exit.py --models base=... looped=... moe=... looped_moe=...` (compute-optimal models at 1e18) |
-| Fig. 5 routing | `uv run python scripts/routing.py --model <looped_moe checkpoint>` |
-| Fig. 6 convergence | `uv run python scripts/convergence.py --models base=... looped=... moe=... looped_moe=...` |
-| Fig. 7 loop depth | `uv run python scripts/sweep.py configs/16L/loop_depth_sweep.yaml --run`, then `early_exit.py` on the 8×2, 4×4, and 2×8 models |
-| Appendix B, 32 layers | `uv run python scripts/sweep.py configs/32L/lr_sweep.yaml --run`, `uv run python scripts/sweep.py configs/32L/isoflop_sweep.yaml --run`, then `fit_isoflops.py`, `early_exit.py`, and `eval_olmes.py` on the compute-optimal models |
+| Sweep | Paper | Then |
+|---|---|---|
+| `configs/transfer/sweep.yaml` | Fig. 2 | `plot_transfer.py` |
+| `configs/16L/isoflop_sweep.yaml` | Figs. 1, 3, 9, 10 | `fit_isoflops.py` |
+| `configs/16L/seeds_sweep.yaml` | Tables 4, 6 | `upload_hf.py`, `eval_olmes.py` |
+| `configs/16L/loop_depth_sweep.yaml` | Fig. 7 | `early_exit.py` |
+| `configs/32L/lr_sweep.yaml`, `configs/32L/isoflop_sweep.yaml` | Appendix B | `fit_isoflops.py`, `early_exit.py`, `eval_olmes.py` |
 
-Compute-optimal widths at 1e18 FLOPs: 16 layers: Base d896, Looped d896, MoE d832,
-Looped-MoE d704. 32 layers: Base d512, MoE d512, Looped 16×2 d640, Looped-MoE 16×2 d512,
-Looped-MoE 8×4 (16 experts) d640.
+The analyses (`early_exit.py`, Figs. 4 and 7, Table 7; `convergence.py`, Fig. 6;
+`routing.py`, Fig. 5) run on the compute-optimal models at 1e18 FLOPs: 16 layers: Base
+d896, Looped d896, MoE d832, Looped-MoE d704; 32 layers: Base d512, MoE d512, Looped 16×2
+d640, Looped-MoE 16×2 d512, Looped-MoE 8×4 (16 experts) d640.
 
 ## Training recipe
 
