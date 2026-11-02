@@ -2,13 +2,13 @@
 average (Core 9 without BoolQ) reported in the paper.
 
 Models must be in Hugging Face format (export with scripts/upload_hf.py). Requires the
-`olmes` command: install with `pip install -e ".[eval]"`, which pins a fork of
+`olmes` command, installed as a separate tool (see README) from a fork of
 https://github.com/allenai/olmes that supports torch>=2.10 (needed for grouped_mm).
 
     # evaluate (runs `olmes`), then summarize
-    python scripts/eval_olmes.py --models base=exports/<run> looped_moe=<user>/<repo>
+    uv run python scripts/eval_olmes.py --models base=exports/<run> looped_moe=<user>/<repo>
     # summarize existing OLMES outputs only
-    python scripts/eval_olmes.py --models base=exports/<run> --summarize_only
+    uv run python scripts/eval_olmes.py --models base=exports/<run> --summarize_only
 """
 import argparse
 import json

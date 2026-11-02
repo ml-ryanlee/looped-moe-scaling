@@ -1,7 +1,7 @@
 """Plot the muP learning-rate transfer test (Figure 2): final validation loss vs learning
 rate, one curve per width, one panel per architecture.
 
-    python scripts/plot_transfer.py --results results/runs.jsonl
+    uv run python scripts/plot_transfer.py --results results/runs.jsonl
 
 Reads the runs from configs/transfer/sweep.yaml (fixed-step runs of configs/transfer/*).
 For each panel, prints the best learning rate per width and how far the loss at the

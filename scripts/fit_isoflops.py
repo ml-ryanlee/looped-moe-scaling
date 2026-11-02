@@ -5,8 +5,8 @@ validation loss; its minimum is the compute-optimal (N*, L*) for that budget. A 
 L = a * N^(-alpha) is then fit through the compute-optimal points (linear fit in log-log
 space).
 
-    python scripts/fit_isoflops.py --results results/runs.jsonl
-    python scripts/fit_isoflops.py --archs base looped_moe --shape 16 8x2
+    uv run python scripts/fit_isoflops.py --results results/runs.jsonl
+    uv run python scripts/fit_isoflops.py --archs base looped_moe --shape 16 8x2
 
 Outputs (in --out_dir):
     isoflops_<arch>.png    isoFLOP curves with compute-optimal points and the fitted law

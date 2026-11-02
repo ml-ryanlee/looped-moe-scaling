@@ -5,7 +5,7 @@ and compared with the model's final output distribution by Jensen-Shannon diverg
 normalized to [0, 1] (divided by ln 2). A token counts as converged at a layer if its
 normalized JSD is below --threshold (0.5).
 
-    python scripts/convergence.py --models base=checkpoints/<run>/final.pt \\
+    uv run python scripts/convergence.py --models base=checkpoints/<run>/final.pt \\
         looped=... moe=... looped_moe=... --out_dir results/convergence
 
 Writes <out_dir>/<NAME>.npz (per-token JSD, shape tokens x effective layers) and

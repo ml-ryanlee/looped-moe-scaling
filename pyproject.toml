@@ -17,8 +17,6 @@ dependencies = [
 data = ["datasets>=4.0", "tokenizers>=0.22", "tqdm>=4.66"]
 hf = ["transformers>=5.3.0", "huggingface-hub>=1.5.0", "safetensors>=0.7.0"]
 wandb = ["wandb>=0.24.0"]
-# OLMES fork that supports torch>=2.10 (needed for grouped_mm); requires Python <3.12
-eval = ["ai2-olmes @ git+https://github.com/ml-ryanlee/olmes.git@3897a974d2881a4e4c4a6af6b2dc3550b6881be3"]
 
 [build-system]
 requires = ["setuptools>=68"]

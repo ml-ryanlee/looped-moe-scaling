@@ -3,9 +3,9 @@
 The width and the compute budget (or a fixed step count) are usually set on the command
 line so that one config serves a whole sweep:
 
-    python scripts/train.py --config configs/16L/looped_moe.yaml --d_model 704 --budget 1e18
-    python scripts/train.py --config configs/16L/base.yaml --d_model 896 --budget 1e18 --seed 43
-    python scripts/train.py --config configs/transfer/base.yaml --d_model 512 --steps 12500 --lr 0.01
+    uv run python scripts/train.py --config configs/16L/looped_moe.yaml --d_model 704 --budget 1e18
+    uv run python scripts/train.py --config configs/16L/base.yaml --d_model 896 --budget 1e18 --seed 43
+    uv run python scripts/train.py --config configs/transfer/base.yaml --d_model 512 --steps 12500 --lr 0.01
 
 Each finished run appends one JSON line (config, parameter counts, final validation loss)
 to --results, which scripts/fit_isoflops.py and scripts/plot_transfer.py read.

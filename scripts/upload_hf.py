@@ -7,8 +7,8 @@ model loads anywhere with:
     AutoModelForCausalLM.from_pretrained(<repo or folder>, trust_remote_code=True)
 
 Usage:
-    python scripts/upload_hf.py checkpoints/<run>/final.pt --out exports/<run>
-    python scripts/upload_hf.py checkpoints/<run>/final.pt --out exports/<run> --repo <user>/<name>
+    uv run python scripts/upload_hf.py checkpoints/<run>/final.pt --out exports/<run>
+    uv run python scripts/upload_hf.py checkpoints/<run>/final.pt --out exports/<run> --repo <user>/<name>
 
 Pushing requires `huggingface-cli login` or HF_TOKEN.
 """

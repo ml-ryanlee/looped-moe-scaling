@@ -4,8 +4,8 @@ Documents are shuffled with seed 42; the first 97,135 form the validation split 
 rest the training split. Each document is followed by <|endoftext|>. Output is a flat
 uint16 array of token ids per split (~19.7 GB train, ~0.2 GB validation).
 
-    python scripts/prepare_data.py --split val
-    python scripts/prepare_data.py --split train
+    uv run python scripts/prepare_data.py --split val
+    uv run python scripts/prepare_data.py --split train
 """
 import argparse
 from pathlib import Path

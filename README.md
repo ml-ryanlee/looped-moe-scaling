@@ -18,10 +18,12 @@ widths, and are compared at equal training compute (C = 6 N_active D).
 ## Setup
 
 ```bash
-uv sync --extra data --extra hf --extra wandb   # or: pip install -e ".[data,hf,wandb]"
-uv sync --extra eval          # OLMES, for scripts/eval_olmes.py
-python scripts/prepare_data.py --split val
-python scripts/prepare_data.py --split train   # FineWeb-Edu 10BT sample, GPT-2 tokenizer (~20 GB)
+uv sync --extra data --extra hf --extra wandb
+# OLMES (for scripts/eval_olmes.py) has conflicting pins, so install it as a separate tool.
+# This fork of allenai/olmes supports torch>=2.10 (needed for grouped_mm).
+uv tool install --python 3.11 "ai2-olmes @ git+https://github.com/ml-ryanlee/olmes.git@3897a974d2881a4e4c4a6af6b2dc3550b6881be3"
+uv run python scripts/prepare_data.py --split val
+uv run python scripts/prepare_data.py --split train   # FineWeb-Edu 10BT sample, GPT-2 tokenizer (~20 GB)
 ```
 
 ## Layout
@@ -56,7 +58,7 @@ A config file describes one architecture and its recipe; the width and the compu
 are chosen per run:
 
 ```bash
-python scripts/train.py --config configs/16L/looped_moe.yaml --d_model 704 --budget 1e18
+uv run python scripts/train.py --config configs/16L/looped_moe.yaml --d_model 704 --budget 1e18
 ```
 
 `d_ff` (8/3 · d_model rounded up to a multiple of 64), the number of heads (d_model / 64),
@@ -71,14 +73,14 @@ them to a job scheduler, or runs them in sequence with `--run`.
 
 | Paper | Commands |
 |---|---|
-| Fig. 2 μP transfer | `python scripts/sweep.py configs/transfer/sweep.yaml --run`, then `python scripts/plot_transfer.py` |
-| Fig. 1, 3, 9, 10 isoFLOP scaling | `python scripts/sweep.py configs/16L/isoflop_sweep.yaml --run`, then `python scripts/fit_isoflops.py` |
-| Tables 4, 6 benchmarks (6 seeds) | `python scripts/sweep.py configs/16L/seeds_sweep.yaml --run`, export each model with `upload_hf.py`, then `python scripts/eval_olmes.py --models ...` |
-| Fig. 4, Table 7 early exit | `python scripts/early_exit.py --models base=... looped=... moe=... looped_moe=...` (compute-optimal models at 1e18) |
-| Fig. 5 routing | `python scripts/routing.py --model <looped_moe checkpoint>` |
-| Fig. 6 convergence | `python scripts/convergence.py --models base=... looped=... moe=... looped_moe=...` |
-| Fig. 7 loop depth | `python scripts/sweep.py configs/16L/loop_depth_sweep.yaml --run`, then `early_exit.py` on the 8×2, 4×4, and 2×8 models |
-| Appendix B, 32 layers | `python scripts/sweep.py configs/32L/lr_sweep.yaml --run`, `python scripts/sweep.py configs/32L/isoflop_sweep.yaml --run`, then `fit_isoflops.py`, `early_exit.py`, and `eval_olmes.py` on the compute-optimal models |
+| Fig. 2 μP transfer | `uv run python scripts/sweep.py configs/transfer/sweep.yaml --run`, then `uv run python scripts/plot_transfer.py` |
+| Fig. 1, 3, 9, 10 isoFLOP scaling | `uv run python scripts/sweep.py configs/16L/isoflop_sweep.yaml --run`, then `uv run python scripts/fit_isoflops.py` |
+| Tables 4, 6 benchmarks (6 seeds) | `uv run python scripts/sweep.py configs/16L/seeds_sweep.yaml --run`, export each model with `upload_hf.py`, then `uv run python scripts/eval_olmes.py --models ...` |
+| Fig. 4, Table 7 early exit | `uv run python scripts/early_exit.py --models base=... looped=... moe=... looped_moe=...` (compute-optimal models at 1e18) |
+| Fig. 5 routing | `uv run python scripts/routing.py --model <looped_moe checkpoint>` |
+| Fig. 6 convergence | `uv run python scripts/convergence.py --models base=... looped=... moe=... looped_moe=...` |
+| Fig. 7 loop depth | `uv run python scripts/sweep.py configs/16L/loop_depth_sweep.yaml --run`, then `early_exit.py` on the 8×2, 4×4, and 2×8 models |
+| Appendix B, 32 layers | `uv run python scripts/sweep.py configs/32L/lr_sweep.yaml --run`, `uv run python scripts/sweep.py configs/32L/isoflop_sweep.yaml --run`, then `fit_isoflops.py`, `early_exit.py`, and `eval_olmes.py` on the compute-optimal models |
 
 Compute-optimal widths at 1e18 FLOPs: 16 layers: Base d896, Looped d896, MoE d832,
 Looped-MoE d704. 32 layers: Base d512, MoE d512, Looped 16×2 d640, Looped-MoE 16×2 d512,
@@ -96,7 +98,7 @@ peak lr 0.01) and 256 (32 layers, peak lr 0.005). Model initialization is seeded
 ## Hugging Face
 
 ```bash
-python scripts/upload_hf.py checkpoints/<run>/final.pt --out exports/<run> [--repo <user>/<name>]
+uv run python scripts/upload_hf.py checkpoints/<run>/final.pt --out exports/<run> [--repo <user>/<name>]
 ```
 
 ```python

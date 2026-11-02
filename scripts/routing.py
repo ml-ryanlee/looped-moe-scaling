@@ -3,7 +3,7 @@
 For every unique layer, compares each token's top-k expert set on loop pass 1 with its set
 on each later pass: identical, partially shared, or no shared expert.
 
-    python scripts/routing.py --model checkpoints/<looped-moe run>/final.pt --out_dir results/routing
+    uv run python scripts/routing.py --model checkpoints/<looped-moe run>/final.pt --out_dir results/routing
 
 Writes <out_dir>/routing.npz (expert ids, shape tokens x loops x layers x k) and
 <out_dir>/routing_overlap.png, and prints the per-layer breakdown.

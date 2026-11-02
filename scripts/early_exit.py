@@ -14,7 +14,7 @@ vs perplexity.
                1 - E[F(exit layer)] / F(full depth)
 
 Usage:
-    python scripts/early_exit.py --models base=checkpoints/<run>/final.pt \\
+    uv run python scripts/early_exit.py --models base=checkpoints/<run>/final.pt \\
         looped_moe=checkpoints/<run>/final.pt --out_dir results/early_exit
 
 Models are NAME=PATH, where PATH is a scripts/train.py checkpoint (*.pt) or a Hugging

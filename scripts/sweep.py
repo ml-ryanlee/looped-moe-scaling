@@ -5,11 +5,11 @@ widths per budget (or one list for all), fixed steps, learning rates, data seeds
 extra train.py arguments (`args`); every combination becomes one run.
 
     # print the commands (e.g. to hand to a job scheduler)
-    python scripts/sweep.py configs/16L/isoflop_sweep.yaml
+    uv run python scripts/sweep.py configs/16L/isoflop_sweep.yaml
     # run them one after another on this machine
-    python scripts/sweep.py configs/16L/isoflop_sweep.yaml --run
+    uv run python scripts/sweep.py configs/16L/isoflop_sweep.yaml --run
     # run only part of a sweep
-    python scripts/sweep.py configs/16L/isoflop_sweep.yaml --only looped_moe --run
+    uv run python scripts/sweep.py configs/16L/isoflop_sweep.yaml --only looped_moe --run
 
 Extra arguments after `--` are passed through to train.py, e.g. `-- --wandb`.
 """
@@ -29,7 +29,7 @@ def expand(sweep: dict):
         for budget in budgets:
             ws = widths[budget] if isinstance(widths, dict) else widths
             for w, lr, seed in itertools.product(ws, group.get("lrs", [None]), group.get("seeds", [None])):
-                cmd = ["python", "scripts/train.py", "--config", group["config"], "--d_model", str(w)]
+                cmd = ["uv", "run", "python", "scripts/train.py", "--config", group["config"], "--d_model", str(w)]
                 if budget is not None:
                     cmd += ["--budget", str(float(budget))]
                 if "steps" in group:
