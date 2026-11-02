@@ -111,7 +111,7 @@ def main():
     wandb = None
     if args.wandb:
         import wandb
-        wandb.init(project=t.wandb_project or "loop-moe-scaling", name=cfg.name,
+        wandb.init(project=t.wandb_project or "looped-moe-scaling", name=cfg.name,
                    config={**cfg.to_dict(), "params": params}, resume="allow" if args.resume else None)
 
     model.train()

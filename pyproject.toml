@@ -1,5 +1,5 @@
 [project]
-name = "loop-moe-scaling"
+name = "looped-moe-scaling"
 version = "1.0.0"
 description = "Code for 'Sparse Layers are Critical to Scaling Looped Language Models'"
 readme = "README.md"
