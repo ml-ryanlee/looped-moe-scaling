@@ -1,0 +1,9 @@
+# Base: 16 unique layers, dense FFN.
+model:
+  arch: base
+  num_layers: 16
+  base_d_model: 128        # muP base width
+train:
+  lr: 0.01
+  eval_batches: 50
+

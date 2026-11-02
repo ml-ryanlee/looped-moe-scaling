@@ -1,0 +1,11 @@
+# 32-layer study: Looped, 16 unique layers x 2 loops.
+model:
+  arch: looped
+  num_unique_layers: 16
+  num_loops: 2
+  base_d_model: 256        # muP base width
+train:
+  lr: 0.005
+  eval_batches: 50
+  precision: bf16
+

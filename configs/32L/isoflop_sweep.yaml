@@ -1,0 +1,10 @@
+# 32-layer isoFLOP study at 1e18 FLOPs (Appendix B). Widths as run.
+groups:
+  base:                {config: configs/32L/base.yaml,                budgets: ["1e18"], widths: [320, 384, 448, 512, 640, 768, 896, 1024, 1152, 1280, 1408]}
+  moe:                 {config: configs/32L/moe.yaml,                 budgets: ["1e18"], widths: [384, 448, 512, 640, 768, 896, 1024, 1152, 1280, 1408]}
+  looped_16x2:         {config: configs/32L/looped_16x2.yaml,         budgets: ["1e18"], widths: [320, 384, 448, 512, 640, 768, 896, 1024, 1152, 1280, 1408]}
+  looped_8x4:          {config: configs/32L/looped_8x4.yaml,          budgets: ["1e18"], widths: [512, 640]}
+  looped_moe_16x2:     {config: configs/32L/looped_moe_16x2.yaml,     budgets: ["1e18"], widths: [320, 384, 448, 512, 640, 768, 896, 1024, 1152, 1280, 1408]}
+  looped_moe_16x2_e16: {config: configs/32L/looped_moe_16x2_e16.yaml, budgets: ["1e18"], widths: [448, 512, 640, 768]}
+  looped_moe_8x4:      {config: configs/32L/looped_moe_8x4.yaml,      budgets: ["1e18"], widths: [512, 640]}
+  looped_moe_8x4_e16:  {config: configs/32L/looped_moe_8x4_e16.yaml,  budgets: ["1e18"], widths: [512, 640, 768]}

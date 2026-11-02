@@ -1,0 +1,23 @@
+# 6-seed benchmark study (Tables 4 and 6): each architecture at its compute-optimal
+# width for 1e18 FLOPs, trained with data-order seeds 42-47 (model init fixed at 42).
+groups:
+  base:
+    config: configs/16L/base.yaml
+    budgets: ["1e18"]
+    widths: [896]
+    seeds: [42, 43, 44, 45, 46, 47]
+  looped:
+    config: configs/16L/looped.yaml
+    budgets: ["1e18"]
+    widths: [896]
+    seeds: [42, 43, 44, 45, 46, 47]
+  moe:
+    config: configs/16L/moe.yaml
+    budgets: ["1e18"]
+    widths: [832]
+    seeds: [42, 43, 44, 45, 46, 47]
+  looped_moe:
+    config: configs/16L/looped_moe.yaml
+    budgets: ["1e18"]
+    widths: [704]
+    seeds: [42, 43, 44, 45, 46, 47]

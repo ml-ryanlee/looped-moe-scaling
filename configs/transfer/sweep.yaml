@@ -1,0 +1,11 @@
+# muP learning-rate transfer test (Figure 2): 4 effective layers, widths 128-1024,
+# 12,500 steps per run. Plot with scripts/plot_transfer.py.
+groups:
+  base:       {config: configs/transfer/base.yaml,       widths: [128, 256, 512, 1024], steps: 12500,
+               lrs: [0.0003, 0.0005, 0.001, 0.002, 0.003, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1, 0.2, 0.3]}
+  looped:     {config: configs/transfer/looped.yaml,     widths: [128, 256, 512, 1024], steps: 12500,
+               lrs: [0.001, 0.002, 0.003, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1]}
+  moe:        {config: configs/transfer/moe.yaml,        widths: [128, 256, 512, 1024], steps: 12500,
+               lrs: [0.001, 0.002, 0.003, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1]}
+  looped_moe: {config: configs/transfer/looped_moe.yaml, widths: [128, 256, 512, 1024], steps: 12500,
+               lrs: [0.001, 0.002, 0.003, 0.005, 0.01, 0.02, 0.03, 0.05, 0.1]}

@@ -1,0 +1,11 @@
+# muP transfer test: Looped, 2 unique layers x 2 loops.
+model:
+  arch: looped
+  num_unique_layers: 2
+  num_loops: 2
+  base_d_model: 128        # muP base width
+train:
+  lr: 0.01
+  eval_batches: 200
+
+  precision: bf16

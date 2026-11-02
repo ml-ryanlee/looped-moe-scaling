@@ -1,0 +1,7 @@
+# 32-layer learning-rate sweep at the muP base width (d_model 256), 10k steps.
+# 0.005 is best for all four architectures and is the lr in the 32L configs.
+groups:
+  base:            {config: configs/32L/base.yaml,            widths: [256], steps: 10000, lrs: [0.0025, 0.005, 0.01, 0.02], args: [--eval_batches, 200]}
+  moe:             {config: configs/32L/moe.yaml,             widths: [256], steps: 10000, lrs: [0.0025, 0.005, 0.01, 0.02], args: [--eval_batches, 200]}
+  looped_16x2:     {config: configs/32L/looped_16x2.yaml,     widths: [256], steps: 10000, lrs: [0.0025, 0.005, 0.01, 0.02], args: [--eval_batches, 200]}
+  looped_moe_16x2: {config: configs/32L/looped_moe_16x2.yaml, widths: [256], steps: 10000, lrs: [0.0025, 0.005, 0.01, 0.02], args: [--eval_batches, 200]}

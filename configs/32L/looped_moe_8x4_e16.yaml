@@ -1,0 +1,13 @@
+# 32-layer study: Looped-MoE, 8 unique layers x 4 loops, top-2 of 16 experts.
+model:
+  arch: looped_moe
+  num_unique_layers: 8
+  num_loops: 4
+  num_experts: 16
+  num_active: 2
+  base_d_model: 256        # muP base width
+train:
+  lr: 0.005
+  eval_batches: 50
+  precision: bf16
+

@@ -1,0 +1,11 @@
+# MoE: 16 unique layers, top-2 of 8 experts.
+model:
+  arch: moe
+  num_layers: 16
+  num_experts: 8
+  num_active: 2
+  base_d_model: 128        # muP base width
+train:
+  lr: 0.01
+  eval_batches: 50
+

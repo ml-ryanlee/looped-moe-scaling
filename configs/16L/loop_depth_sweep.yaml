@@ -1,0 +1,8 @@
+# Loop-depth study (Section 6.3, Figure 7): 16 effective layers as 4x4 and 2x8, at the
+# compute-optimal width of the 8x2 model for 1e18 FLOPs. The 8x2 models come from
+# isoflop_sweep.yaml (looped d896, looped_moe d704).
+groups:
+  looped_4x4:     {config: configs/16L/looped_4x4.yaml,     budgets: ["1e18"], widths: [896]}
+  looped_2x8:     {config: configs/16L/looped_2x8.yaml,     budgets: ["1e18"], widths: [896]}
+  looped_moe_4x4: {config: configs/16L/looped_moe_4x4.yaml, budgets: ["1e18"], widths: [704]}
+  looped_moe_2x8: {config: configs/16L/looped_moe_2x8.yaml, budgets: ["1e18"], widths: [704]}

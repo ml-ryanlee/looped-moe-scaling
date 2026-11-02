@@ -1,0 +1,13 @@
+# muP transfer test: Looped-MoE, 2 unique layers x 2 loops, top-2 of 8 experts.
+model:
+  arch: looped_moe
+  num_unique_layers: 2
+  num_loops: 2
+  num_experts: 8
+  num_active: 2
+  base_d_model: 128        # muP base width
+train:
+  lr: 0.01
+  eval_batches: 200
+
+  precision: bf16

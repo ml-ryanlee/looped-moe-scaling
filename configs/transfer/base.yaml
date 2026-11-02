@@ -1,0 +1,10 @@
+# muP transfer test: Base, 4 layers.
+model:
+  arch: base
+  num_layers: 4
+  base_d_model: 128        # muP base width
+train:
+  lr: 0.01
+  eval_batches: 200
+
+  precision: bf16

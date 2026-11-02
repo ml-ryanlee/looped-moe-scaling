@@ -1,0 +1,10 @@
+# Loop-depth study: Looped, 4 unique layers x 4 loops.
+model:
+  arch: looped
+  num_unique_layers: 4
+  num_loops: 4
+  base_d_model: 128        # muP base width
+train:
+  lr: 0.01
+  eval_batches: 50
+
